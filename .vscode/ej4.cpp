@@ -22,48 +22,97 @@ struct nodo
 
 
 
+void space_jump()
+{
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    for (int i = 0; i < 20; i++)
+    {
+        cout << endl;
+    }
+    
+
+}
+nodo* create_node(nodo *inicio,nodo*nuevo)
+{
+    nuevo->siguiente=inicio;
+    return nuevo;
 
 
-nodo* ingreso(nodo *inicio)
+}
+nodo* insercion(nodo *inicio,nodo *nuevo)
+{
+
+    if (inicio==nullptr)
+        {
+            inicio=nuevo;
+        }
+        else
+        {
+
+            nodo *aux=inicio;
+            while (aux->siguiente!=nullptr)
+            {
+                aux=aux->siguiente;
+            }
+            aux->siguiente=nuevo;
+        }
+    return inicio;
+
+}
+nodo* ingreso_inicial(nodo *inicio)
 {
     int num=0;
-    nodo *nuevo= new nodo;
-    cout << "Ingresar numero a guardar(0 para cortar): ";
+    nodo *nuevo;
+    cout << "Ingresar numero a guardar al principio(0 para cortar): ";
     cin >> num;
     while (num!=0)
     {
+        nuevo=new nodo;
         nuevo->numero=num;
-        nuevo->siguiente=inicio;
-        inicio=nuevo;
-        cout <<endl<< "Ingresar numero a guardar(0 para cortar): ";
+        nuevo=create_node(inicio,nuevo);
+        cout << "Ingresar numero a guardar al principio(0 para cortar): ";
         cin >> num;
-        std::this_thread::sleep_for(std::chrono::seconds(3));
+        
     }
-    return inicio;
+    return nuevo;
 }
 
 nodo *ingreso_final(nodo *inicio)
 {
-    
-
-
-
-
-
-
-
+    int num=0;
+    nodo *nuevo;
+    cout << "Ingresar numero a guardar al final(0 para cortar): ";
+    cin >> num;
+    while (num!=0)
+    {
+        nuevo=new nodo;
+        nuevo->siguiente=nullptr;
+        nuevo->numero=num;
+        inicio=insercion(inicio,nuevo);
+        cout << "Ingresar numero a guardar al final(0 para cortar): ";
+        cin >> num;
+    }
+    return inicio;
 }
-
-
+void impresion_datos(nodo *inicio)
+{   
+    cout << '\t' <<"|Datos enlazados|"<<endl<<'|';
+    for (nodo  *aux = inicio; aux!=nullptr; aux=aux->siguiente)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        cout << aux->numero<< ' ';
+    }
+}
 
 int main()
 {
     nodo *inicio=nullptr;
-    inicio=ingreso_inicial(inicio);
-    cout << inicio->numero;
-    inicio=nullptr;
+    //inicio=ingreso_inicial(inicio);
+    //impresion_datos(inicio);
+    space_jump();
     inicio=ingreso_final(inicio);
-    
+    space_jump();
+    impresion_datos(inicio);
 
 
 }
