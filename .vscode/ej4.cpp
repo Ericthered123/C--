@@ -103,16 +103,52 @@ void impresion_datos(nodo *inicio)
         cout << aux->numero<< ' ';
     }
 }
-
+nodo* insercion_ordenada(nodo* inicio,nodo* nuevo)
+{
+    if (inicio==nullptr || nuevo->numero < inicio->numero)
+    {
+        inicio=nuevo;
+    }
+    else
+    {
+    nodo* aux=inicio;
+    while (aux->siguiente != nullptr && aux->siguiente->numero < nuevo->numero) 
+        {
+        aux = aux->siguiente;
+        }
+    nuevo->siguiente = aux->siguiente;
+    aux->siguiente = nuevo;
+    }
+return inicio;
+}
+nodo* ingreso_ordenado(nodo *inicio)
+{
+    //TODO
+    int num=0;
+    nodo *nuevo;
+    cout << "Ingresar numero a guardar(0 para cortar): ";
+    cin >> num;
+    while (num!=0)
+    {
+        nuevo=new nodo;
+        nuevo->numero=num;
+        nuevo->siguiente=nullptr;
+        inicio=insercion_ordenada(inicio,nuevo);
+        cout << "Ingresar numero a guardar(0 para cortar): ";
+        cin >> num;
+    }
+    return inicio;
+}
 int main()
 {
     nodo *inicio=nullptr;
     //inicio=ingreso_inicial(inicio);
     //impresion_datos(inicio);
-    space_jump();
-    inicio=ingreso_final(inicio);
-    space_jump();
+    //space_jump();
+    //inicio=ingreso_final(inicio);
+    //space_jump();
+    //impresion_datos(inicio);
+   inicio=ingreso_ordenado(inicio);
     impresion_datos(inicio);
-
 
 }
