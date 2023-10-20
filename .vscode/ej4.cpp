@@ -148,7 +148,7 @@ int main()
     //inicio=ingreso_final(inicio);
     //space_jump();
     //impresion_datos(inicio);
-   inicio=ingreso_ordenado(inicio);
+    inicio=ingreso_ordenado(inicio);
     impresion_datos(inicio);
 
 }
