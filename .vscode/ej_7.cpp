@@ -62,26 +62,53 @@ nodo* node_insertion(nodo* inicio,nodo* nuevo)
 
 
 }
-//TODO
+
+
 void verify_existence(nodo* inicio)
 {
+    cout << "\t"<<"***VERIFY EXISTENCE***"<<endl<<endl;
     int looked_number=0;
-    cout << ""
-    for (nodo* aux = inicio; aux->siguiente!=nullptr; aux=aux->siguiente)
+    cout << "Ingrese numero a buscar: ";
+    cin >> looked_number;
+    nodo *aux=inicio;
+    while (aux!=nullptr)
+    
     {
-        if (aux->num_pos==numero)
+        if (aux->num_pos==looked_number)
         {
-            cout<<"El numero " <<numero<<  " ya esta en la lista.."<<endl;
+            cout<<"El numero " <<looked_number<<  " ya esta en la lista.."<<endl;
             std::this_thread::sleep_for(std::chrono::seconds(3));
             return;
         }
-        
+        aux=aux->siguiente;
     }
-    
-
+    cout << "El numero "<< looked_number<< " no esta en la lista..."<<endl;
+    std::this_thread::sleep_for(std::chrono::seconds(3));
 
 }
 
+void inform_quantity_of_existences(nodo* inicio)
+{
+    cout << "\t"<<"***QUANTITY OF EXISTENCES***"<<endl<<endl;
+    int quantity=0;
+    int looked_existence;
+    cout << "Ingresar ocurrencia a buscar: ";
+    cin >> looked_existence;
+    nodo *aux=inicio;
+    while ( aux!=nullptr)
+    {
+    
+    
+        if (aux->num_pos==looked_existence)
+        {
+            quantity++;
+        }    
+        aux=aux->siguiente;
+    }    
+    cout << "El numero "<< looked_existence<< " se encuentra "<< quantity << " veces en la lista."<<endl;
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+
+}
 nodo* carga_numeros(nodo* inicio)
 {
     int num=0;
@@ -122,7 +149,10 @@ int main()
 {
     nodo* inicio=nullptr;
     inicio=carga_numeros(inicio);
-    
+    space_jump();
+    verify_existence(inicio);
+    space_jump();
+    inform_quantity_of_existences(inicio);
 
 
 
