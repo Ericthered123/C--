@@ -144,7 +144,7 @@ void impresion_datos(nodo *inicio)
         cout << aux->num_pos<< '|';
     }
 }
-void list_division_through_parity(nodo* inicio,nodo* &pares,nodo* &impares)
+void list_division_through_parity(nodo* &inicio,nodo* &pares,nodo* &impares)
 {
     nodo* anterior=nullptr;
     while (inicio!=nullptr)
@@ -162,6 +162,7 @@ void list_division_through_parity(nodo* inicio,nodo* &pares,nodo* &impares)
 
 
         }
+
     }
     
 
@@ -180,12 +181,13 @@ int main()
     inform_quantity_of_existences(inicio);
     nodo* pares=nullptr;
     nodo* impares=nullptr;
-    list_division_through_parity(inicio,pares,impares);
+    list_division_through_parity(inicio,pares,impares);   
     space_jump();
     impresion_datos(pares);
     space_jump();
     impresion_datos(impares);
-
+    space_jump();
+    impresion_datos(inicio);
 
 }
 
