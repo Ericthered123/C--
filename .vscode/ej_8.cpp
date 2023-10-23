@@ -49,14 +49,14 @@ nodo_int* node_insertion(nodo_int* inicio,nodo_int* nuevo)
 bool verify_wish()
 {
     int eleccion=2;
-    while (eleccion==2)
+    while (eleccion!=0&&eleccion!=1)
     {
     cout << "Desea seguir con la carga?"<<endl;        
     cout << "[0] NO"<<endl;
     cout << "[1] SI"<<endl;
     cout << "Ingresar eleccion: ";
     cin >>eleccion;
-    if (eleccion<0&&eleccion>1)
+    if (eleccion<0||eleccion>1)
     {
         cout << "VUELVA A INGRESAR SU ELECCION..."<<endl;
         std::this_thread::sleep_for(std::chrono::seconds(3));
@@ -114,7 +114,7 @@ bool verify_extermination(nodo_int* inicio,int exterminated_number)
         }
                 
     }
-    cout << "El numero ingresado ha sido en la lista...";
+    cout << "El numero ingresado ha sido exterminado de la lista...";
     std::this_thread::sleep_for(std::chrono::seconds(5));
     return false;
 }
