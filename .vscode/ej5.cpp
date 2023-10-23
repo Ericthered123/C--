@@ -123,7 +123,6 @@ return inicio;
 }
 nodo* ingreso_ordenado(nodo *inicio)
 {
-    //TODO
     int num=0;
     nodo *nuevo;
     cout << "Ingresar numero a guardar(0 para cortar): ";
@@ -142,12 +141,12 @@ nodo* ingreso_ordenado(nodo *inicio)
 int main()
 {
     nodo *inicio=nullptr;
-    //inicio=ingreso_inicial(inicio);
-    //impresion_datos(inicio);
-    //space_jump();
-    //inicio=ingreso_final(inicio);
-    //space_jump();
-    //impresion_datos(inicio);
+    inicio=ingreso_inicial(inicio);
+    impresion_datos(inicio);
+    space_jump();
+    inicio=ingreso_final(inicio);
+    space_jump();
+    impresion_datos(inicio);
     inicio=ingreso_ordenado(inicio);
     impresion_datos(inicio);
 
