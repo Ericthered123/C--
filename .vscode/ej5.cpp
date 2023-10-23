@@ -69,12 +69,12 @@ nodo* ingreso_inicial(nodo *inicio)
     {
         nuevo=new nodo;
         nuevo->numero=num;
-        nuevo=create_node(inicio,nuevo);
+        inicio=create_node(inicio,nuevo);
         cout << "Ingresar numero a guardar al principio(0 para cortar): ";
         cin >> num;
         
     }
-    return nuevo;
+    return inicio;
 }
 
 nodo *ingreso_final(nodo *inicio)
