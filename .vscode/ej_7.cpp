@@ -64,7 +64,7 @@ nodo* node_insertion(nodo* inicio,nodo* nuevo)
 }
 
 
-void verify_existence(nodo* inicio)
+void verify_existence(nodo* inicio)//Use of while structure instead of a for, due to the context of the function
 {
     cout << "\t"<<"***VERIFY EXISTENCE***"<<endl<<endl;
     int looked_number=0;
@@ -95,7 +95,7 @@ void inform_quantity_of_existences(nodo* inicio)
     cout << "Ingresar ocurrencia a buscar: ";
     cin >> looked_existence;
     nodo *aux=inicio;
-    while ( aux!=nullptr)
+    while ( aux!=nullptr)//Use of while structure instead of a for, due to the context of the function
     {
     
     
@@ -144,17 +144,47 @@ void impresion_datos(nodo *inicio)
         cout << aux->num_pos<< '|';
     }
 }
+void list_division_through_parity(nodo* inicio,nodo* &pares,nodo* &impares)
+{
+    nodo* anterior=nullptr;
+    while (inicio!=nullptr)
+    {
+        anterior=inicio;
+        inicio=inicio->siguiente;
+        anterior->siguiente=nullptr;
+        if ((anterior->num_pos%2)==0)
+        {
+            pares=node_insertion(pares,anterior);
+        }
+        else
+        {
+            impares=node_insertion(impares,anterior);
+
+
+        }
+    }
+    
+
+}
+
 
 int main()
 {
     nodo* inicio=nullptr;
     inicio=carga_numeros(inicio);
     space_jump();
+    impresion_datos(inicio);
+    space_jump();
     verify_existence(inicio);
     space_jump();
     inform_quantity_of_existences(inicio);
-
-
+    nodo* pares=nullptr;
+    nodo* impares=nullptr;
+    list_division_through_parity(inicio,pares,impares);
+    space_jump();
+    impresion_datos(pares);
+    space_jump();
+    impresion_datos(impares);
 
 
 }
