@@ -26,9 +26,18 @@ void space_jump()
     
 
 }
-void impresion_datos(nodo *inicio)
+void impresion_palabras(nodo *inicio)
 {   
-    cout << '\t' <<"|Datos enlazados|"<<endl<<'|';
+    cout << '\t' <<"|Palabras enlazadas|"<<endl<<'|';
+    for (nodo  *aux = inicio; aux!=nullptr; aux=aux->siguiente)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        cout << aux->palabra<< '|';
+    }
+}
+void impresion_repetidos(nodo *inicio)
+{   
+    cout << '\t' <<"|Palabras repetidas|"<<endl<<'|';
     for (nodo  *aux = inicio; aux!=nullptr; aux=aux->siguiente)
     {
         std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -108,27 +117,35 @@ nodo* load_of_words(nodo *inicio)
     return inicio;
 }
 
-void looking_repeated_words(nodo* ptr_head,string arreglo[])
-{
-
-
-}
 void divide_by_repeated_words(nodo* &ptr_head,nodo *&ptr_repetidos)
 {
+    string examinated_word;
     nodo* anterior;
-    while (ptr_head!=nullptr)
+    for ( nodo* aux=ptr_head; aux!=nullptr; aux=aux->siguiente)
     {
-        anterior=ptr_head;
-        ptr_head=ptr_head->siguiente;
-        anterior->siguiente=nullptr
-
+        int counter=0;
+        examinated_word=aux->palabra;
+        for ( nodo* aux_2=aux; aux_2!=nullptr; aux_2=aux_2->siguiente)
+        {
+            if (examinated_word==aux_2->palabra)
+            {
+                counter++;
+            }
+            
+        }
+        if (counter>1)
+        {
+            anterior=aux;
+            aux=aux->siguiente;
+            anterior->siguiente=nullptr;
+            ptr_repetidos=create_node(ptr_repetidos,anterior);
+        }
         
     }
-    
-
-
 
 }
+
+
 
 
 int main()
@@ -137,8 +154,10 @@ int main()
     
     inicio=load_of_words(inicio);
     space_jump();
-    impresion_datos(inicio);
+    impresion_palabras(inicio);
     nodo* inicio_repetidos=nullptr;
-
+    divide_by_repeated_words(inicio,inicio_repetidos);
+    space_jump();
+    impresion_repetidos(inicio_repetidos);
 
 }
