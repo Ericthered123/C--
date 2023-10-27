@@ -42,7 +42,99 @@ void space_jump()
     
 
 }
+
+//A
+void percentage_increment(nodo* head)
+{
+    float incremento_porcentual;
+    cout << "Ingrese el porcentaje de aumento de los precios: ";
+    cin >> incremento_porcentual;
+    for (nodo* aux=head ; aux!=nullptr; aux=aux->siguiente)
+    {
+        aux->articulo.precio=((incremento_porcentual+100)*aux->articulo.precio)/100;
+    }
+    cout <<endl<< "\t"<< "Se han aumentado los precios de los articulos en un "<< incremento_porcentual<< "%";
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+}
+//B
+void increment_stock(nodo* head)
+{
+
+    int code,inc_stock,code_verifier;
+    code_verifier=0;
+    cout << "Ingrese el codigo del articulo buscado: ";
+    cin >> code;
+    for ( nodo* aux=head; aux!=nullptr; aux=aux->siguiente)
+    {
+        if (aux->articulo.codigo==code)
+        {
+            code_verifier=1;
+            cout << "Ingrese en cuanto quiere aumentar el stock de ese articulo: ";
+            cin >> inc_stock;
+            aux->articulo.stock+=inc_stock;
+            cout << "Se ha aumentado el stock del articulo codigo "<< aux->articulo.codigo<<" en "<<inc_stock<<endl<<endl;
+            std::this_thread::sleep_for(std::chrono::seconds(3));
+        }
+        
+    }
+    if (code_verifier==0)
+    {
+        cout <<endl<< "Ese codigo no se encuentra en la lista..."<<endl<<endl;
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+    }
+
+    
+
+
+}
+//C
+
+nodo* eliminate_absence_of_article(nodo* head)
+{
+    
+    if (head!=nullptr)
+    {
+        nodo* aux=head;
+        if (head->articulo.stock==0)
+        {
+            head=head->siguiente;
+            delete aux;
+        }
+        else
+        {
+            while (aux->siguiente!=nullptr&&aux->siguiente->articulo.stock!=0)
+            {
+                aux=aux->siguiente;
+                
+            }
+            if (aux->siguiente->articulo.stock==0)
+            {
+                nodo* aborrar=aux->siguiente;
+                aux->siguiente=aborrar->siguiente;
+                delete aborrar;
+            }
+        }
+    }
+    return head;
+
+}
+nodo* search_stock_absence(nodo* head)//TODO problems with eliminating stock value 0 fix!!!
+{
+
+    for ( nodo* aux=head; aux!=nullptr; aux=aux->siguiente)
+    {
+        if (aux->articulo.stock==0)
+        {
+            aux=eliminate_absence_of_article(aux);
+        }
+        
+    }
+    return aux;
+
+
+}
 int verify_code(nodo* inicio,int codigo_nuevo)
+//TODO this can get better, verification not working for second element
 {
      
     for (nodo*aux = inicio; aux!=nullptr; aux=aux->siguiente)
@@ -122,6 +214,7 @@ void print_list_of_articles(nodo *inicio)
         i++;
         
     }
+    std::this_thread::sleep_for(std::chrono::seconds(5));
 }
 int main()
 {
@@ -130,5 +223,14 @@ int main()
     head=article_insertion(head);
     space_jump();
     print_list_of_articles(head);
-
+    head=search_stock_absence(head);
+    space_jump();
+    print_list_of_articles(head);
+    space_jump();
+    increment_stock(head);
+    percentage_increment(head);
+    space_jump();
+    print_list_of_articles(head);
+    space_jump();
+    
 }
