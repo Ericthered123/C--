@@ -89,8 +89,12 @@ void increment_stock(nodo* head)
 }
 //C
 
-nodo* eliminate_absence_of_article(nodo* head)
+nodo* eliminate_absence_of_article(nodo* head,int &cant_elim)
 {
+    while (cant_elim!=0)
+    {
+        
+    
     
     if (head!=nullptr)
     {
@@ -115,21 +119,25 @@ nodo* eliminate_absence_of_article(nodo* head)
             }
         }
     }
+    cant_elim--;
+    }
     return head;
 
-}
-nodo* search_stock_absence(nodo* head)//TODO problems with eliminating stock value 0 fix!!!
-{
 
+}
+nodo* search_stock_absence(nodo* head)//DONE  problems fixed
+{
+    int z_quantity=0;
     for ( nodo* aux=head; aux!=nullptr; aux=aux->siguiente)
     {
         if (aux->articulo.stock==0)
         {
-            aux=eliminate_absence_of_article(aux);
+            z_quantity++;
         }
-        
+        ;   
     }
-    return aux;
+    head=eliminate_absence_of_article(head,z_quantity);
+    return head;
 
 
 }
