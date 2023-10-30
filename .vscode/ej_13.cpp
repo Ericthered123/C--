@@ -163,7 +163,32 @@ nodo* charge_of_sold_items(nodo* head)
     return head;
 }
 
+void reinsert_node(nodo* & lista_original, nodo* & lista_nueva) {
+    nodo* anterior = lista_original;
+    lista_original = lista_original->siguiente;
+    anterior->siguiente = nullptr;
+    lista_nueva = insert_by_order(lista_nueva, anterior);
+}
 
+nodo* merge(nodo* a,nodo* b)
+{
+    nodo* c=nullptr;
+    while (a != nullptr && b != nullptr) {
+    if (a->venta.code_P <= b->venta.code_P) {
+    reinsert_node(a, c);
+    }
+    else {
+    reinsert_node(b, c);
+    }
+    }
+    while (a != nullptr) {
+    reinsert_node(a, c);
+    }
+    while (b != nullptr) {
+    reinsert_node(a, c);
+    }
+    return c;
+}
 
 int main()
 {
@@ -178,8 +203,10 @@ int main()
     sucursal++;
     print_list_of_sold_items(head_2,sucursal);
     space_jump();
-
-
-
+    nodo* head_merged=nullptr;
+    head_merged=merge(head,head_2);
+    sucursal=1;
+    print_list_of_sold_items(head_merged,sucursal);
+    
 
 }
