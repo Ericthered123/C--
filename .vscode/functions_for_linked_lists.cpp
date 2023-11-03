@@ -20,11 +20,11 @@ struct nodo
 
 nodo* start_insertion(nodo *inicio)
 {
-    int ejemplo=0;//El tipo de dato varia segun el contexto
+    int ejemplo=0;                  //El tipo de dato varia segun el contexto
     nodo *nuevo;
     cout << "Ingresar numero a guardar al principio(0 para cortar): ";
     cin >> ejemplo;
-    while (ejemplo!=0)//La condicion de corte puede variar dependiendo del contexto
+    while (ejemplo!=0)              //La condicion de corte puede variar dependiendo del contexto
     {
         nuevo=new nodo;
         nuevo->dato=ejemplo;
@@ -32,7 +32,7 @@ nodo* start_insertion(nodo *inicio)
         cout << "Ingresar numero a guardar al principio(0 para cortar): ";
         cin >> ejemplo;
         
-    }//Tambien se puede utilizar una estructura for, para este ingreso, todo depende del contexto
+    }                                //Tambien se puede utilizar una estructura for, para este ingreso, todo depende del contexto
     return inicio;
 }
 
