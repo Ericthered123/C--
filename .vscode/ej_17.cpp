@@ -168,7 +168,7 @@ int main()
     nodo* anterior=nullptr;
     c_pointer=load_of_words(c_pointer,node_quantity);
     space_jump();
-    //print_circular_list(c_pointer);
+    print_circular_list(c_pointer);
     anterior=buscar_posicion(c_pointer,node_quantity);
     cout << endl<<" Ingrese la palabra a insertar en la posicion deseada: ";
     getline(cin>>ws,word);
