@@ -125,24 +125,53 @@ nodo* load_of_words(nodo* end,int &cantidad)
     return end;
 }
 
-nodo* buscar_posicion(nodo* fin,int position)//TODO parte A
+nodo* buscar_posicion(nodo* fin,int cantidad)//TODO parte A
 {
-
-
+    int desired_position;
+    cout << endl<< "Ingrese posicion que va a ocupar la nueva palabra: ";
+    cin >> desired_position;
+    if (desired_position>cantidad||desired_position<=0)
+    {
+        cout<<endl<< "Ingrese una posicion valida!!!";
+        return nullptr;
+    }
+    if (desired_position==1)
+    {
+        return fin;
+    }
+    for (nodo* aux=fin ; desired_position!=0; aux=aux->siguiente)
+    {
+        desired_position--;
+        if (desired_position==0)
+        {
+            return aux;
+        }
+        
+    }
+}
+void insertar_despues(nodo* anterior,string palabra)
+{
+    nodo* aux=anterior->siguiente;
+    anterior->siguiente=new nodo;
+    anterior->siguiente->word=palabra;
+    anterior->siguiente->siguiente=aux;
+    
+    
+    
 
 }
-
-
 int main()
 {
-    int node_position;
+    string word;
     int node_quantity=0;
     nodo* c_pointer=nullptr;
+    nodo* anterior=nullptr;
     c_pointer=load_of_words(c_pointer,node_quantity);
     space_jump();
+    //print_circular_list(c_pointer);
+    anterior=buscar_posicion(c_pointer,node_quantity);
+    cout << endl<<" Ingrese la palabra a insertar en la posicion deseada: ";
+    getline(cin>>ws,word);
+    insertar_despues(anterior,word);
     print_circular_list(c_pointer);
-    cout << endl<< "Ingrese posicion que va a ocupar la nueva palabra: ";
-    c_pointer=buscar_posicion(c_pointer,node_position);
-
-
 }
