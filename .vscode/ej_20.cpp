@@ -50,10 +50,11 @@ void print_circular_list(nodo *end)
     if (end != nullptr)
     {
     nodo* aux = end->siguiente;
-    cout << '\t' <<"|CUITS DE PROVEEDORES|"<<endl<<'|';
+    cout << '\t' <<"|DETAILS OF EXECUTING PROCCESES|"<<endl<<'|';
     do {
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    cout << aux->process.execution_date<< '|';
+    cout <<"PID: "<< aux->process.PID<< " Usuario: "  <<aux->process.usuario<<" Tiempo de ejecucion: "<< aux->process.time_of_execution<<" Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
+    cout << endl;
     aux = aux->siguiente;
     } 
     while (aux != end->siguiente);
@@ -101,12 +102,55 @@ nodo* insert_at_circular_start(nodo* end, nodo* nuevo)
     }
 
 }
+bool verification(nodo* end, int PID)
+{   
+    if (end!=nullptr)
+    {
+     nodo* aux=end->siguiente;   
+    do
+    {
+        aux=aux->siguiente;
+        if (aux->process.PID==PID||PID<=0)
+        {
+            return true;
+        }
+        
+    } while (aux!=end->siguiente);
+    }
+    return false;
 
-nodo* load_of_cuits(nodo* end,int &quantity)
+
+}
+int verify_PID(nodo* end,int PID)
+{
+    bool verifier=true;
+
+    if (end!=nullptr)
+    {
+     nodo* aux=end->siguiente;   
+    do
+    {
+        aux=aux->siguiente;
+        while (verifier)
+        {
+            verifier=verification(end,verifier);
+            cout<<endl<< "Ese PID ya existe o es negativo, ingrese uno nuevo: ";
+            cin >> PID;
+        }
+            
+    } while (aux!=end->siguiente);
+    return PID;
+    }
+}
+
+nodo* load_of_each_process(nodo* end)
 {              
     bool deseo=true;
     proceso proceso_ex;   
     nodo *nuevo;//TODO VERIFICATIONS
+    cout << "Ingresar PID(>=0): ";
+    cin  >> proceso_ex.PID;
+    proceso_ex.PID=verify_PID(end,proceso_ex.PID);
     cout << "Ingresar nombre de usuario a guardar: ";
     getline(cin>>ws,proceso_ex.usuario);
     cout << "Ingresar la cantidad de segundos de ejecucion: ";
@@ -115,10 +159,10 @@ nodo* load_of_cuits(nodo* end,int &quantity)
     cin >> proceso_ex.execution_date;
     while (deseo)              
     {
+
         nuevo=new nodo;
-        nuevo->process=;
+        nuevo->process=proceso_ex;
         end=insert_at_circular_start(end,nuevo);
-        quantity++;
         deseo=verify_wish(); 
         cout<< endl<<endl;   
         if (not deseo)
@@ -127,10 +171,23 @@ nodo* load_of_cuits(nodo* end,int &quantity)
             std::this_thread::sleep_for(std::chrono::seconds(3));
             break;
         }    
-        cout << "Ingresar CUIT a guardar: ";
-        cin >> cuit;
-        cuit=cuit_verification(cuit,end);
+        cout << "Ingresar PID(>=0): ";
+        cin  >> proceso_ex.PID;
+        proceso_ex.PID=verify_PID(end,proceso_ex.PID);
+        cout << "Ingresar nombre de usuario a guardar: ";
+        getline(cin>>ws,proceso_ex.usuario);
+        cout << "Ingresar la cantidad de segundos de ejecucion: ";
+        cin >> proceso_ex.time_of_execution;
+        cout << "Ingresar la fecha en la que se empezo a ejecutar(formato DDMM): ";
+        cin >> proceso_ex.execution_date;
     }                                
     return end;
 }
 
+int main()
+{
+    nodo* process_pointer=nullptr;
+    process_pointer=load_of_each_process(process_pointer);
+    space_jump();
+    print_circular_list(process_pointer);
+}
