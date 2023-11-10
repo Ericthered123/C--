@@ -50,10 +50,10 @@ void print_circular_list(nodo *end)
     if (end != nullptr)
     {
     nodo* aux = end->siguiente;
-    cout << '\t' <<"|DETAILS OF EXECUTING PROCCESES|"<<endl<<'|';
+    cout << '\t' <<"|DETAILS OF EXECUTING PROCCESES|"<<endl;
     do {
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    cout <<"PID: "<< aux->process.PID<< " Usuario: "  <<aux->process.usuario<<" Tiempo de ejecucion: "<< aux->process.time_of_execution<<" Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
+    cout <<"|PID: "<< aux->process.PID<< " Usuario: "  <<aux->process.usuario<<" Tiempo de ejecucion: "<< aux->process.time_of_execution<<" Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
     cout << endl;
     aux = aux->siguiente;
     } 
@@ -110,7 +110,7 @@ bool verification(nodo* end, int PID)
     do
     {
         aux=aux->siguiente;
-        if (aux->process.PID==PID||PID<=0)
+        if (aux->process.PID==PID||PID<0)
         {
             return true;
         }
@@ -119,28 +119,36 @@ bool verification(nodo* end, int PID)
     }
     return false;
 
-
 }
 int verify_PID(nodo* end,int PID)
 {
-    bool verifier=true;
-
+    bool verifier;
+    int v=0;
     if (end!=nullptr)
     {
      nodo* aux=end->siguiente;   
     do
     {
         aux=aux->siguiente;
-        while (verifier)
+        while (v==0)
         {
-            verifier=verification(end,verifier);
-            cout<<endl<< "Ese PID ya existe o es negativo, ingrese uno nuevo: ";
-            cin >> PID;
+            verifier=verification(end,PID);
+            if (verifier)
+            {
+                cout<<endl<< "Ese PID ya existe o es negativo, ingrese uno nuevo: ";
+                cin >> PID;
+            }
+            else
+            {
+                v=1;
+            }
+            
         }
             
     } while (aux!=end->siguiente);
     return PID;
     }
+    return PID;
 }
 
 nodo* load_of_each_process(nodo* end)
