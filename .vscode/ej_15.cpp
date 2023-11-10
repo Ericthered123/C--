@@ -12,11 +12,9 @@ elementos tiene que ser el mismo que en la lista original). Luego, imprimir las 
 
 
 #include <iostream>
-#include <cctype>
-#include <cstring>
+#include <string>
 #include <thread>
 #include <chrono>
-#include <locale>
 using namespace std;
 
 
@@ -56,11 +54,11 @@ void space_jump()
     }
 }
 
-bool is_alfanumerical( string word)
+bool is_alfanumerical(string word)
 {
     for (int i = 0; i < word.length(); i++)
     {
-        if (not isalnum(word[i]))
+        if (isalnum(word[i])==0)
         {
             return true;
         }
@@ -74,8 +72,8 @@ string patent_verification(string low_word)
 {
     bool verifier;
     low_word=lowering_word(low_word);
-
-    while (verifier=is_alfanumerical(low_word))
+    verifier=is_alfanumerical(low_word);
+    while (verifier)
     {
         
         cout << "Ha ingresado una patente con un formato incorrecto(usar caracteres alfanumericos!!!)...";
@@ -83,6 +81,7 @@ string patent_verification(string low_word)
         cout << "Ingrese la patente con el formato correcto: ";
         getline(cin>>ws,low_word);
         low_word=lowering_word(low_word);
+        verifier=is_alfanumerical(low_word);
        
     }
     return low_word;
