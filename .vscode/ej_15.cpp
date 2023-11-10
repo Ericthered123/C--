@@ -16,7 +16,7 @@ elementos tiene que ser el mismo que en la lista original). Luego, imprimir las 
 #include <cstring>
 #include <thread>
 #include <chrono>
-
+#include <locale>
 using namespace std;
 
 
@@ -56,27 +56,34 @@ void space_jump()
     }
 }
 
+bool is_alfanumerical( string word)
+{
+    for (int i = 0; i < word.length(); i++)
+    {
+        if (not isalnum(word[i]))
+        {
+            return true;
+        }
+        
+    }
+    return false;
+
+}
+
 string patent_verification(string low_word)
 {
-    getline(cin>>ws,low_word);
-    int s=0;
-    int len;
+    bool verifier;
     low_word=lowering_word(low_word);
-    len=low_word.length();
-    while (isalpha(low_word[s])&&len!=0)
+
+    while (verifier=is_alfanumerical(low_word))
     {
-        if (not isalpha(low_word[s]))
-        {
-            cout << "Ha ingresado una patente con un formato incorrecto(usar caracteres alfanumericos!!!)...";
-            s=0;
-            std::this_thread::sleep_for(std::chrono::seconds(3));
-            cout << "Ingrese la patente con el formato correcto: ";
-            getline(cin>>ws,low_word);
-            low_word=lowering_word(low_word);
-            len=low_word.length();
-        }
-        s++;
-        len--;
+        
+        cout << "Ha ingresado una patente con un formato incorrecto(usar caracteres alfanumericos!!!)...";
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+        cout << "Ingrese la patente con el formato correcto: ";
+        getline(cin>>ws,low_word);
+        low_word=lowering_word(low_word);
+       
     }
     return low_word;
 }
@@ -87,7 +94,7 @@ void print_list(nodo *inicio)
     for (nodo  *aux = inicio; aux!=nullptr; aux=aux->siguiente)
     {
         std::this_thread::sleep_for(std::chrono::seconds(2));
-        cout <<"|Patente del auto infractor: "<< aux->data.patente<< '|'<< "Captada por el sensor: "<< aux->data.sensor<< "| A la velocidad de: " << aux->data.velocidad<< " km/h|";
+        cout <<"|Patente del auto: "<< aux->data.patente<< '|'<< "Captada por el sensor: "<< aux->data.sensor<< "| A la velocidad de: " << aux->data.velocidad<< " km/h|";
         cout << endl;
     }
 }
@@ -149,22 +156,18 @@ nodo* load_sensor_data(nodo* head)
     nodo *nuevo;
     fetched_data data;
     cout << "Ingresar numero de patente a guardar('aaa99' para cortar): ";
+    getline(cin>>ws,data.patente);
     data.patente=patent_verification(data.patente);
     while (data.patente!="aaa99")              
     { 
         nuevo=new nodo;
         data.sensor=captor_sensor();
-        cout << "Ingrese la velocidad captada por el sensor(mayor a 72.4 km/h): ";
+        cout << "Ingrese la velocidad captada por el sensor(mayor a 72.4 km/h es multa): ";
         cin >> data.velocidad;
-        if (data.velocidad<72.4)
-        {
-            cout << "ERROR DEL SENSOR, ese auto no infrigio la velocidad maxima permitida!!!";
-            std::this_thread::sleep_for(std::chrono::seconds(3));
-            cout << endl<< endl;
-        }
         nuevo->data=data;
         head=insert_by_patent_number(head,nuevo);
         cout << "Ingresar numero de patente a guardar('aaa99' para cortar): ";
+        getline(cin>>ws,data.patente);
         data.patente=patent_verification(data.patente);
     }    
     return head;
