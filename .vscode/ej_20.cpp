@@ -53,7 +53,7 @@ void print_circular_list(nodo *end)
     cout << '\t' <<"|DETAILS OF EXECUTING PROCCESES|"<<endl;
     do {
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    cout <<"|PID: "<< aux->process.PID<< " Usuario: "  <<aux->process.usuario<<" Tiempo de ejecucion: "<< aux->process.time_of_execution<<" Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
+    cout <<"|PID: "<< aux->process.PID<< " |Usuario: "  <<aux->process.usuario<<" |Tiempo de ejecucion: "<< aux->process.time_of_execution<<" |Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
     cout << endl;
     aux = aux->siguiente;
     } 
@@ -191,6 +191,100 @@ nodo* load_of_each_process(nodo* end)
     }                                
     return end;
 }
+//A---------------------------------------------------------
+void inform_longest_process(nodo* end)
+{   
+    int longest_time=0;
+    int longest_PID;
+    if (end!=nullptr)
+    {     
+        nodo* aux=end->siguiente;
+        do
+        {
+            if (aux->process.time_of_execution>longest_time)
+            {
+                longest_time=aux->process.time_of_execution;
+                longest_PID=aux->process.PID;
+            }
+            aux=aux->siguiente;   
+        } while (aux!=end->siguiente);
+        
+    }
+    cout <<endl<< "El PID del proceso con mayor tiempo de ejecucion es: "<< longest_PID;
+
+
+
+}
+
+//B---------------------------------------------------------
+nodo* eliminate_march_14th(nodo* end)
+{
+
+    if (end!=nullptr)
+    {
+    nodo* aux = end;
+    nodo* aEliminar;
+    do {
+        if (aux->siguiente->process.execution_date == 1403)
+        {
+        aEliminar = aux->siguiente;
+        if (aEliminar == end)
+        {
+        end = aux;
+        }
+        aux->siguiente = aEliminar->siguiente;
+        delete aEliminar;
+        break;
+        }
+    else
+        aux = aux->siguiente;
+    } while (aux != end);
+ }
+ return end;
+    
+}
+//C-----------------------------------------------
+void existencial_augment(nodo* &end)
+{
+
+    if (end!=nullptr)
+    {
+        nodo* aux=end->siguiente;
+        do
+        {
+            if (aux->process.PID==5)
+            {
+                aux->process.time_of_execution+=2;
+            }
+            aux=aux->siguiente;
+        } while (aux!=end->siguiente);
+        
+    }
+    
+}
+//D--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void print_root_executions(nodo* end)
+{
+    if (end!=nullptr)
+    {
+        nodo* aux=end->siguiente;
+        do
+        {
+            if (aux->process.usuario=="root")
+            {
+                cout <<"|PID: "<< aux->process.PID<< " |Usuario: "  <<aux->process.usuario<<" |Tiempo de ejecucion: "<< aux->process.time_of_execution<<" |Fecha de ejecucion: "<<aux->process.execution_date/100<<'/'<<aux->process.execution_date%100<<  '|' ;
+                cout << endl; 
+            }
+            aux=aux->siguiente;
+        } while (aux!=end->siguiente);
+        
+    }
+    
+
+
+
+}
+
 
 int main()
 {
@@ -198,4 +292,12 @@ int main()
     process_pointer=load_of_each_process(process_pointer);
     space_jump();
     print_circular_list(process_pointer);
+    space_jump();
+    inform_longest_process(process_pointer);
+    space_jump();
+    process_pointer=eliminate_march_14th(process_pointer);
+    existencial_augment(process_pointer);
+    print_circular_list(process_pointer);
+    space_jump();
+    print_root_executions(process_pointer);
 }
