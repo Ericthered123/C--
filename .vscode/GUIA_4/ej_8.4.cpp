@@ -15,9 +15,9 @@ using namespace std;
 string inversion(string word)
 {
     string inverted_word;
-    for (int i = word.length()-1; i >0; i--)
+    for (int i = word.length(); i >0; i--)
     {
-        inverted_word+=word[i];
+        inverted_word+=word[i-1];
     }
     return inverted_word;
 
@@ -33,25 +33,27 @@ string invert(string word, int word_ws)
     {
         return "";
     }
-    return inversion(word.substr(0,word.find(" ")))+invert(word,word_ws-1);
+    return inversion(word.substr(0,word.find(" ")))+" "+invert(word.substr(word.find(" ")+1),word_ws-1);
 
 
 
 }
 
-int amount_of_ws(string word)//TODO
+int amount_of_ws(string word)
 {
-bool verifier=true;
-int amount=0;
-while (verifier)
-{
-    if (word.find())
+    word=word+" ";
+    bool verifier=true;
+    int amount=0;
+    while (verifier)
     {
+        word=word.substr(word.find(" ")+1);
+        if (word.find(" ")==-1)
+            {
+            break;
+            }
         amount++;
     }
-    
-}
-return amount+1;
+    return amount+1;
 
 }
 
@@ -64,8 +66,6 @@ int main()
     cout << "INSERT WORD: ";
     getline(cin>>ws,word);
     w_ws=amount_of_ws(word);
-    cout << w_ws;
-    cout << "Your word "<< word<< " inverted is equal to: "<< invert(word,w_ws);
+    cout << "Your word '"<< word<< "' inverted is equal to: "<< invert(word,w_ws);
     
-
 }
