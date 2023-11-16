@@ -13,16 +13,13 @@ Ejemplo: si el número es 5182, la función debe imprimir 2815.*/
 using namespace std;
 
 
-int invert_num(int num, int num_len)
+int invert_num(int num, int resultado=0)
 {
-    string num_invert;
-    if (num_len==0)
-    {
-        return 0;
-    }
-    return num%10*invert_num(num,num_len-1);
-
-
+    if (num < 10) {
+        return resultado * 10 + num;
+        }   
+    resultado = (resultado * 10) + (num % 10);
+    return invert_num(num / 10, resultado); 
 
 }
 
@@ -36,8 +33,7 @@ int main()
     int num;
     cout << "INSERT NUMBER TO REVERSE IT: ";
     cin >> num;
-    num_len=to_string(num).length();
-    cout << "El numero "<< num << " invertido es: "<< invert_num(num,num_len);
-    cout << num_len;
+    cout << "El numero "<< num << " invertido es: "<< invert_num(num);
+
 
 }
