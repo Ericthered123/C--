@@ -12,6 +12,7 @@ elementos tiene que ser el mismo que en la lista original). Luego, imprimir las 
 
 
 #include <iostream>
+#include <cctype>
 #include <string>
 #include <thread>
 #include <chrono>
@@ -160,6 +161,7 @@ nodo* load_sensor_data(nodo* head)
     while (data.patente!="aaa99")              
     { 
         nuevo=new nodo;
+        nuevo->siguiente=nullptr;
         data.sensor=captor_sensor();
         cout << "Ingrese la velocidad captada por el sensor(mayor a 72.4 km/h es multa): ";
         cin >> data.velocidad;
