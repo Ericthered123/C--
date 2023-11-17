@@ -35,7 +35,7 @@ bool palindrome_verification(string word,int w_len,string inverted)//TODO
 {     
     if (w_len==0)
     {
-        if (word=inverted)//FIXME
+        if (word=inverted)//FIXME there's no use in trying to compare strings
         {
             return true;
         }
