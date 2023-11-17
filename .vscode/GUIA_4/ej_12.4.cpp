@@ -33,16 +33,15 @@ int suma_pares(int arreglo[],int dl)
     {
         return parity(arreglo[0]);
     }
-    return parity(arreglo[dl-1])+parity(arreglo[dl-2]);
+    return parity(arreglo[dl])+suma_pares(arreglo,dl-1);       
 
-
-} 
+}   
 
 
 int main()
 {
-    int arreglo[]={4,5,10,17,2,3};
+    int arreglo[]={4,5,10,17,2,4};
     int dl=6;
-    cout << "La suma de los numeros pares del arreglo es igual a: "<< suma_pares(arreglo,dl);
+    cout << "La suma de los numeros pares del arreglo es igual a: "<< suma_pares(arreglo,dl-1);
 
 }
