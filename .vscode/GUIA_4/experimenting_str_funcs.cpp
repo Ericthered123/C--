@@ -30,6 +30,7 @@ int main()
     int w_len=word.length()-1;
     cout << "INSERT WORD: ";
     getline(cin>>ws,word);
+    cout <<endl<< isalnum(word[1]);
     cout << "Inverted word: "<< inversion(word);
     cout << endl<< word.substr(0,word.find(" "));
 

@@ -31,23 +31,21 @@ string inversion(string word)
 
 }
 
-bool palindrome_verification(string word,int w_len,string inverted)//TODO
+bool palindrome_verification(string word,int w_len,string inverted)
 {     
-        if (word[w_len]!=inverted[w_len])
-        {
-            return false;
-        }
-        if (w_len==0)
-        {
-            return true;
-        } 
-        if (word[w_len]==inverted[w_len])
-        {
-            return  palindrome_verification(word,w_len-1,inverted);
-        }
+    if (word[w_len]!=inverted[w_len])
+    {
+        return false;
+    }
+    if (w_len==0)
+    {
+        return true;
+    } 
+    if (word[w_len]==inverted[w_len])
+    {
+        return  palindrome_verification(word,w_len-1,inverted);
+    }
         
-        
-       
 }
     
 

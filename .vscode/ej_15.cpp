@@ -54,7 +54,7 @@ void space_jump()
     }
 }
 
-bool is_alfanumerical(string word)
+bool is_alfanumerical(string word)//FIXME Ask the teacher about the segmentation problem with the string library.
 {
     for (int i = 0; i < word.length(); i++)
     {
@@ -70,7 +70,7 @@ bool is_alfanumerical(string word)
 
 string patent_verification(string low_word)
 {
-    bool verifier;
+    bool verifier=true;
     low_word=lowering_word(low_word);
     verifier=is_alfanumerical(low_word);
     while (verifier)
