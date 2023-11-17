@@ -33,24 +33,27 @@ string inversion(string word)
 
 bool palindrome_verification(string word,int w_len,string inverted)//TODO
 {     
-    if (w_len==0)
-    {
-        if (word=inverted)//FIXME there's no use in trying to compare strings
-        {
-            return true;
-        }
-        else
+        if (word[w_len]!=inverted[w_len])
         {
             return false;
-
         }
-    }
-    return inverted+word[w_len]+palindrome_verification(word,w_len-1,inverted);
-
-
-
-
+        if (w_len==0)
+        {
+            return true;
+        } 
+        if (word[w_len]==inverted[w_len])
+        {
+            return  palindrome_verification(word,w_len-1,inverted);
+        }
+        
+        
+       
 }
+    
+
+
+
+
 
 
 int main()
@@ -58,8 +61,8 @@ int main()
     string word,inverted;
     cout << "INSERT ONE WORD: ";
     cin >> word;
-    inverted="";
-    if (palindrome_verification(word,word.length(),inverted))
+    inverted=inversion(word);
+    if (palindrome_verification(word,word.length()-1,inverted))
     {
         cout << '\t'<< "THE WORD "<< word << " IS A PALINDROME";
     }
