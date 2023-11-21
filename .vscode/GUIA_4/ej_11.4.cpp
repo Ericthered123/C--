@@ -40,7 +40,7 @@ int busqueda_impar(int arreglo[],int dl)
         return arreglo[dl];
 
     }
-    return busqueda_impar(arreglo,dl);
+    return busqueda_impar(arreglo,dl-1);
 
 }
 
